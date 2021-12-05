@@ -13,7 +13,7 @@ class TargetError(Exception):
 class InfiniteLoopError(Exception):
 	""" Exception raised when the program takes too long."""
 	def __init__(self, maxIter):
-		self.message = f"Infinite loop, program stopped after {maxIter} steps!"
+		super().__init__(f"Infinite loop, stopped program after {maxIter} steps!")
 
 class Statement:
 	"""An executable line from the program.
