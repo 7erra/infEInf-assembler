@@ -46,7 +46,7 @@ class Statement:
         try:
             target = int(target)
         except TypeError as exception:
-            if self.command != "HL":
+            if self.command != "HLT":
                 raise TargetError(
                     f"[LINE {self.position}] {string.strip()}", "Target must be an integer!"
                 ) from exception
