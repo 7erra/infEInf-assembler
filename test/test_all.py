@@ -14,6 +14,11 @@ class TestAssembler(unittest.TestCase):
         """Copy a value from one register to another"""
         prog = assembler.Program("test/test_copy.txt")
         self.assertEqual(prog.run({100: 0, 101: 5, 102: 0}), {100: 5, 101: 5, 102: 0})
+    def test_multiply(self):
+        """Multiply two values (registeres 100, 101) and write the result in register 102"""
+        prog = assembler.Program("test/test_multiply.txt")
+        self.assertEqual(prog.run({100: 2, 101: 3, 102: 0, 103: 0})[102], 6)
+        self.assertEqual(prog.run({100: 5, 101: 6, 102: 0, 103: 0})[102], 30)
 
     def test_error_index(self):
         """Program that tires to access a command counter beyond the last line"""
