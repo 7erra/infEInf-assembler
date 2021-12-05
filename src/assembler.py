@@ -10,6 +10,10 @@ class TargetError(Exception):
 	def __init__(self, expression, message):
 		self.expression = expression
 		self.message = message
+class InfiniteLoopError(Exception):
+	""" Exception raised when the program takes too long."""
+	def __init__(self, maxIter):
+		self.message = f"Infinite loop, program stopped after {maxIter} steps!"
 
 class Statement:
 	"""An executable line from the program.
@@ -100,8 +104,7 @@ class Program:
 				print(f"{self.counter:7} {self.register}\n")
 			run += 1
 			if run >= max_runs:
-				print(f"Infinite loop! Program aborted after {run} executions.")
-				return
+				raise InfiniteLoopError(run)
 		print("Final register:", self.register)
 		return self.register
 	
