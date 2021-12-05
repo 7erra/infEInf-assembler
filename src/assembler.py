@@ -103,6 +103,7 @@ class Program:
 				print(f"Infinite loop! Program aborted after {run} executions.")
 				return
 		print("Final register:", self.register)
+		return self.register
 	
 	def compileStatement(self, string, line):
 		"""Convert a string into a statement"""
