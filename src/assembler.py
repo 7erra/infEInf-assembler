@@ -31,9 +31,25 @@ class Statement:
         "HLT" - Stops the program
     target: The target can be a register or the counter, depending on the command
     """
-    def __init__(self, program, command, target=None):
+    regex_command = re.compile(r"(?P<cmd>HLT|TST|INC|DEC|JMP)(?:\s+(?P<target>\d+))?")
+
+    def __init__(self, program, string, position):
         self.program = program
-        self.command = command
+        self.position = position
+        self.compile(string)
+
+    def compile(self, string):
+        """Converts a line into an assembler statement"""
+        match = self.regex_command.match(string)
+        self.command = match["cmd"]
+        target = match["target"]
+        try:
+            target = int(target)
+        except TypeError as exception:
+            if self.command != "HL":
+                raise TargetError(
+                    f"[LINE {self.position}] {string.strip()}", "Target must be an integer!"
+                ) from exception
         self.target = target
 
     def execute(self):
@@ -70,7 +86,7 @@ class Program:
         """Converts the file into a list of statements"""
         self.statements = []
         with open(file, encoding="utf-8") as code_file:
-            self.statements = tuple(self.compile_statement(s, i)
+            self.statements = tuple(Statement(self, s, i)
                                     for i, s
                                     in enumerate(code_file.readlines()))
 
@@ -135,18 +151,3 @@ class Program:
                 input()
         print("Final register:", self.register)
         return self.register
-
-    def compile_statement(self, string, line):
-        """Convert a string into a statement"""
-        match = self.regex_command.match(string)
-        cmd = match["cmd"]
-        target = match["target"]
-        try:
-            target = int(target)
-        except TypeError as exception:
-            if cmd != "HLT":
-                raise TargetError(
-                    f"[LINE {line + 1}]: {string.strip()}",
-                    "Target must be an integer!"
-                    ) from exception
-        return Statement(self, cmd, target)
