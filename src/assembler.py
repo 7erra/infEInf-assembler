@@ -69,6 +69,25 @@ class Program:
 
 	def run(self, register=None, verbose=False, step_by_step=False):
 		"""Run the program.
+
+		The register is a dict() containing all values for the register, eg:
+			{100: 0, 101: 5, 102: 0}
+
+		Enabling verbose will print information each step in the following
+		format:
+		
+			Command: DEC , Target: 100 , Step: 2
+			Counter Register
+				  3 {100: 5}
+				  4 {100: 4}
+
+		The first line contains the command that is executed, what the command
+		is targeting (can be a register or the command counter) and how many
+		times any command was executed. After this information follows a table
+		with the first column "Counter" which contains the command counter and a
+		a second column with the state of the register. The first line of the
+		table represents the state before the execution of the command while the
+		second line is the state after the execution.
 		
 		Arguments:
 		register -- The starting register. If no register is given it will be asked from the user.

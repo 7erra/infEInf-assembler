@@ -33,6 +33,8 @@ p.run()
 p.run({100: 0})
 ```
 
+Don't forget to read the inline documentation in assembler.py, it also contains important information!
+
 ### Commands
 #### TST register
 Increase the command counter by two if the value in `register` is 0, increase it by 1 otherwise.
