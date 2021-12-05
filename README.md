@@ -3,9 +3,9 @@ A simple tool to run programs written for the infEInf lecture at the CAU.
 
 ## Installation
 Download [assembler.py](assembler.py)
-	* As a [zip](https://github.com/7erra/infEInf-assembler/archive/refs/heads/master.zip),
-	* By cloning this repository,
-	* Or copying its content to a local file
+* As a [zip](https://github.com/7erra/infEInf-assembler/archive/refs/heads/master.zip),
+* By cloning this repository,
+* Or copying its content to a local file
 
 ## Usage
 - Create a new file next to [assembler.py]()
