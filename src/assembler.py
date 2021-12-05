@@ -67,7 +67,7 @@ class Program:
 		with open(file) as f:
 			self.statements = tuple([self.compileStatement(s, i) for i, s in enumerate(f.readlines())])
 
-	def run(self, register=None, verbose=False, step_by_step=False):
+	def run(self, register=dict(), verbose=False, step_by_step=False):
 		"""Run the program.
 
 		The register is a dict() containing all values for the register, eg:
@@ -75,7 +75,7 @@ class Program:
 
 		Enabling verbose will print information each step in the following
 		format:
-		
+
 			Command: DEC , Target: 100 , Step: 2
 			Counter Register
 				  3 {100: 5}
@@ -96,20 +96,16 @@ class Program:
 		"""
 		verbose = verbose or step_by_step
 		self.counter = 0
-		self.register = dict()
-		if not register:
-			# No register given, analyze program and ask for values
-			for s in self.statements:
-				if s.command in {"TST", "INC", "DEC"}:
-					if not (s.target in self.register):
-						while True:
-							value = input(f"Value for register {s.target}: ")
-							if (value.isdigit()):
-								self.register[s.target] = int(value)
-								break
-							print("INVALID: Only integers are allowed!")
-		else:
-			self.register = register
+		for s in self.statements:
+			# Analyze the commands and ask for missing values
+			if s.command in {"TST", "INC", "DEC"}:
+				while not s.target in register:
+					value = input(f"Value for register {s.target}: ")
+					if not value.isdigit():
+						print("INVALID: Only integers are allowed!")
+						continue
+					register[s.target] = int(value)
+		self.register = register
 		run = 0
 		max_runs = 1000
 		while True:
