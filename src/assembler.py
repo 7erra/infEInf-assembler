@@ -67,13 +67,15 @@ class Program:
 		with open(file) as f:
 			self.statements = tuple([self.compileStatement(s, i) for i, s in enumerate(f.readlines())])
 
-	def run(self, register=None, verbose=False):
+	def run(self, register=None, verbose=False, step_by_step=False):
 		"""Run the program.
 		
 		Arguments:
 		register -- The starting register. If no register is given it will be asked from the user.
 		verbose -- Print more information each step (default False)
+		step_by_step -- Ask for input after each step, also enables verbose (default False)
 		"""
+		verbose = verbose or step_by_step
 		self.counter = 0
 		self.register = dict()
 		if not register:
@@ -105,6 +107,8 @@ class Program:
 			run += 1
 			if run >= max_runs:
 				raise InfiniteLoopError(run)
+			if step_by_step:
+				input()
 		print("Final register:", self.register)
 		return self.register
 	
