@@ -46,7 +46,7 @@ Jump to line `counter`.
 Stop the program.
 
 ### Common mistakes
-#### Infinite loops
+#### InfiniteLoopError
 Make sure your program has a HLT statement. In all other cases you have to rethink the logic of your program.
 #### TargetError
 Make sure that all right hand arguments are integers (except for HLT)
