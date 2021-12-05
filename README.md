@@ -2,13 +2,13 @@
 A simple tool to run programs written for the infEInf lecture at the CAU.
 
 ## Installation
-Download [assembler.py](assembler.py)
+Download [assembler.py](src/assembler.py)
 * As a [zip](https://github.com/7erra/infEInf-assembler/archive/refs/heads/master.zip),
 * By cloning this repository,
 * Or copying its content to a local file
 
 ## Usage
-- Create a new file next to [assembler.py]()
+- Create a new file next to [assembler.py](src/assembler.py)
 - Write your assembler code in that file. The line count corresponds to the command counter.
 - A default register can be passed to the program as a dictionary (see example)
 - If you don't set this register you are prompted to enter starting values for all used registers
